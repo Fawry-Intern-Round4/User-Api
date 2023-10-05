@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface UserService {
     UserDetailsService userDetailsService();
+
     List<UserResponse> findAllUsers();
 
     UserResponse deactivateUser(Long id);

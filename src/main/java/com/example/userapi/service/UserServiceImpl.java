@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse deactivateUser(Long id) {
-        User user= userRepository.findById(id)
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND.getMessage()));
         user.setEnable(false);
         userRepository.save(user);
@@ -42,8 +42,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse activateUser(Long id) {
-        User user= userRepository
-                .findById(id).orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND.getMessage()));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND.getMessage()));
         user.setEnable(true);
         userRepository.save(user);
         return userMapper.toUserResponse(user);

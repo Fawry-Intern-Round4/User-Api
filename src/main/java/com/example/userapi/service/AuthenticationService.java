@@ -10,5 +10,4 @@ public interface AuthenticationService {
 
     JwtAuthenticationResponse signIn(AuthDto request);
 
-    Boolean validate(JwtAuthenticationResponse request);
 }

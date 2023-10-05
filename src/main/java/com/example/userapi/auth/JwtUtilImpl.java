@@ -21,6 +21,7 @@ public class JwtUtilImpl implements JwtUtil {
     private String jwtSigningKey;
     @Value("${token.expiration.time}")
     private Long expirationTime;
+
     @Override
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
