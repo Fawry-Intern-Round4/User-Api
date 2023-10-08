@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("token")
 @RequiredArgsConstructor
 public class AuthController {
-    @GetMapping("token/validation")
+    @GetMapping("validation")
     @ResponseStatus(code = HttpStatus.OK)
     public ResponseEntity<Void> validateToken() {
         return ResponseEntity.ok().build();
