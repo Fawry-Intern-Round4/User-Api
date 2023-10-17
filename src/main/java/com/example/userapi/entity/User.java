@@ -2,6 +2,8 @@ package com.example.userapi.entity;
 
 import com.example.userapi.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,10 +23,14 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @NotBlank(message = "Username is mandatory")
     String username;
+    @NotBlank(message = "Password is mandatory")
     String password;
+    @NotNull
     boolean enable;
     @Enumerated(EnumType.STRING)
+    @NotNull
     Role role;
 
     @Override

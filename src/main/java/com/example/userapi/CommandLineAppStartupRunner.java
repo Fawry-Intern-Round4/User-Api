@@ -1,6 +1,6 @@
 package com.example.userapi;
 
-import com.example.userapi.dto.AuthDto;
+import com.example.userapi.dto.AuthRequest;
 import com.example.userapi.repository.UserRepository;
 import com.example.userapi.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +23,6 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
         if (userRepository.existsByUsername(username)) {
             return;
         }
-        authenticationService.signUp(new AuthDto(username, password));
+        authenticationService.signUp(new AuthRequest(username, password));
     }
 }

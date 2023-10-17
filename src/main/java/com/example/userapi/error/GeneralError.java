@@ -1,12 +1,22 @@
 package com.example.userapi.error;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class GeneralError {
-    private final String message;
+    private int status;
+    private String message;
+    private String timestamp;
+    public static GeneralError generateGeneralError(int status, String message) {
+        LocalDate localDate = LocalDate.now();
+        return new GeneralError(status, message, localDate.toString());
+    }
 }

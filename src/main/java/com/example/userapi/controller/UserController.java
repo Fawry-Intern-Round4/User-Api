@@ -1,13 +1,12 @@
 package com.example.userapi.controller;
 
-import com.example.userapi.dto.AuthDto;
+import com.example.userapi.dto.AuthRequest;
 import com.example.userapi.dto.JwtAuthenticationResponse;
 import com.example.userapi.dto.UserResponse;
 import com.example.userapi.service.AuthenticationService;
 import com.example.userapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,14 +20,14 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public UserResponse signUp(@RequestBody AuthDto request) {
+    public UserResponse signUp(@RequestBody AuthRequest request) {
         return authenticationService.signUp(request);
     }
 
     @PostMapping("login")
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity<JwtAuthenticationResponse> login(@RequestBody AuthDto request) {
-        return ResponseEntity.ok(authenticationService.signIn(request));
+    public JwtAuthenticationResponse login(@RequestBody AuthRequest request) {
+        return authenticationService.signIn(request);
     }
 
     @PutMapping("activation/{id}")

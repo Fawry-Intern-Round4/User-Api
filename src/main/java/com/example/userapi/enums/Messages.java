@@ -10,6 +10,7 @@ public enum Messages {
     AUTHORIZATION_HEADER_NOT_FOUND("Authorization header not found"),
     USERNAME_NOT_FOUND_IN_TOKEN("Username not found in token"),
     INVALID_USERNAME_OR_PASSWORD("Invalid username or password"),
+    TOKEN_NOT_VALID("Token not valid")
     ;
     final String message;
 

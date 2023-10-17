@@ -1,7 +1,7 @@
 package com.example.userapi.service;
 
 import com.example.userapi.auth.JwtUtil;
-import com.example.userapi.dto.AuthDto;
+import com.example.userapi.dto.AuthRequest;
 import com.example.userapi.dto.JwtAuthenticationResponse;
 import com.example.userapi.dto.UserResponse;
 import com.example.userapi.entity.User;
@@ -25,7 +25,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
     private final UserMapper userMapper;
 
     @Override
-    public UserResponse signUp(AuthDto request) {
+    public UserResponse signUp(AuthRequest request) {
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -40,7 +40,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
     }
 
     @Override
-    public JwtAuthenticationResponse signIn(AuthDto request) {
+    public JwtAuthenticationResponse signIn(AuthRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         User user = userRepository.findByUsername(request.getUsername())
