@@ -5,6 +5,7 @@ import com.example.userapi.dto.JwtAuthenticationResponse;
 import com.example.userapi.dto.UserResponse;
 import com.example.userapi.service.AuthenticationService;
 import com.example.userapi.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +21,13 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public UserResponse signUp(@RequestBody AuthRequest request) {
+    public UserResponse signUp(@Valid @RequestBody AuthRequest request) {
         return authenticationService.signUp(request);
     }
 
     @PostMapping("login")
     @ResponseStatus(code = HttpStatus.OK)
-    public JwtAuthenticationResponse login(@RequestBody AuthRequest request) {
+    public JwtAuthenticationResponse login(@Valid @RequestBody AuthRequest request) {
         return authenticationService.signIn(request);
     }
 

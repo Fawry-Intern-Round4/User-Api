@@ -8,10 +8,13 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.util.Objects;
 
 
 @ControllerAdvice
@@ -37,6 +40,13 @@ public class ExceptionsHandlerController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody GeneralError handleConstraintViolationException(ConstraintViolationException e) {
         String message = ((ConstraintViolation<?>) e.getConstraintViolations().toArray()[0]).getMessage();
+        return GeneralError.generateGeneralError(HttpStatus.BAD_REQUEST.value(), message);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public @ResponseBody GeneralError handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        String message = Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage();
         return GeneralError.generateGeneralError(HttpStatus.BAD_REQUEST.value(), message);
     }
 }
