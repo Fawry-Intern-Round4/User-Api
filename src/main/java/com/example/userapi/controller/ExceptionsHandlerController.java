@@ -3,6 +3,8 @@ package com.example.userapi.controller;
 import com.example.userapi.error.GeneralError;
 import io.jsonwebtoken.JwtException;
 import jakarta.security.auth.message.AuthException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,5 +32,11 @@ public class ExceptionsHandlerController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody GeneralError handelNotFoundException(Exception e) {
         return GeneralError.generateGeneralError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    }
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public @ResponseBody GeneralError handleConstraintViolationException(ConstraintViolationException e) {
+        String message = ((ConstraintViolation<?>) e.getConstraintViolations().toArray()[0]).getMessage();
+        return GeneralError.generateGeneralError(HttpStatus.BAD_REQUEST.value(), message);
     }
 }
