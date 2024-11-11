@@ -37,7 +37,8 @@ The `User API` provides functionality for:
   {
     "id": "long",
     "username": "string",
-    "status": "string"
+    "enable": "boolean",
+    "role": "string"
   }
   ```
 - **Response Code**: `201 Created`
@@ -59,8 +60,7 @@ The `User API` provides functionality for:
 - **Response**: 
   ```json
   {
-    "token": "string",
-    "expiresAt": "datetime"
+    "token": "string"
   }
   ```
 - **Response Code**: `200 OK`
@@ -78,7 +78,8 @@ The `User API` provides functionality for:
   {
     "id": "long",
     "username": "string",
-    "status": "string"
+    "enable": "boolean",
+    "role": "string"
   }
   ```
 - **Response Code**: `200 OK`
@@ -96,7 +97,8 @@ The `User API` provides functionality for:
   {
     "id": "long",
     "username": "string",
-    "status": "string"
+    "enable": "boolean",
+    "role": "string"
   }
   ```
 - **Response Code**: `200 OK`
@@ -114,13 +116,56 @@ The `User API` provides functionality for:
     {
       "id": "long",
       "username": "string",
-      "status": "string"
+      "enable": "boolean",
+      "role": "string"
     }
   ]
   ```
 - **Response Code**: `200 OK`
 
 ---
+
+## DTO Classes
+
+- **UserResponse**: Represents the user details in the response.
+  ```java
+  @Data
+  @Builder
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public class UserResponse {
+      private Long id;
+      private String username;
+      private boolean enable;
+      private String role;
+  }
+  ```
+
+- **JwtAuthenticationResponse**: Represents the JWT token in the login response.
+  ```java
+  @Data
+  @Builder
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public class JwtAuthenticationResponse {
+      private String token;
+  }
+  ```
+
+- **AuthRequest**: Represents the authentication request (login or sign-up).
+  ```java
+  @Data
+  @Builder
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Validated
+  public class AuthRequest {
+      @NotBlank(message = "username is mandatory")
+      private String username;
+      @NotBlank(message = "password is mandatory")
+      private String password;
+  }
+  ```
 
 ## Configuration
 
